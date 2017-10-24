@@ -1,0 +1,46 @@
+Seien  a,b,c,d,e,f  und  g  Variablen vom Typ  integer. Welche der folgenden Anweisungen bzw. Anweisungsfolgen haben dieselbe Bedeutung wie:
+
+if (a < b) and (c < d) then
+  e := f
+else
+  e := g;
+Dabei wird  f <> g  angenommen.
+       
+[X] A 	
+e := f;
+if not (a < b) then
+  e := g;
+if not (c < d) then
+  e := g;
+{ Dieses Beispiel entspricht not A or not B, was äquivalent ist zu A and B. }
+
+[X] B 	
+if (a >= b) or (c >= d) then
+  e := g
+else
+  e := f;
+{ a >= b entspricht not (a < b). Das gleiche gilt für den zweiten Ausdruck. Daher gilt not A or not B, was äquivalent ist zu A and B. }
+
+[ ] C 	
+e := g;
+if a < b then
+  e := f;
+if c < d then
+  e := f;
+{ Dieses Beispiel entspricht A or B, was nicht äquivalent ist zu A and B. Es muss nur einer der beiden Ausdrücke wahr sein, um der Variablen e den Wert von f zuzuweisen. }
+
+[ ] D 	
+if a < b then
+  if c < d then
+    e := f
+  else
+    e := g;
+{ Da sich das else auf die innere if-Anweisung bezieht würde nur im Falle von a < b und not(c < d) der Variablen e der Wert von g zugewiesen werden. Ansonsten wäre e an dieser Stelle undefiniert. }
+
+[ ] E 	
+e := g;
+if not (a >= b) then
+  e := f;
+if c < d then
+  e := f;
+{ Dieses beispiel entspricht (a < b) or (c < d), was nicht äquivalent ist zu A and B. }

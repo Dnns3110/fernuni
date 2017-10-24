@@ -1,0 +1,7 @@
+Seien  b  eine Variable vom Typ  boolean  und  i  vom Typ  integer. Welche der folgenden Ausdrücke sind korrekt:
+       
+[X] A: b and (i > 0) { Gültig, da durch die Klammer zuerst der Ausdruck "i > 0" ausgewertet wird. Das ergebnis ist ein boolscher Wert, der sich über "and" mit dem Wert der boolschen Variable b verknüpfen lässt. }
+[ ] B: i > 0 and b { Nicht erlaubt, da der Operator "and" eine höhere Priorität hat, als ">" und "0 and b" ist kein gültiger boolscher Ausdruck.} 
+[X] C: i / 3 { Gültig, da ein Integer implizit vom Compiler in real umgewandelt werden kann und für real ist die Division mit "/" definiert. }
+[X] D: (i > 0) or b = false { Gültig. Durch die Klammern wird zuerst "i > 0" ausgewertet. Das Ergebnis hiervon ist ein boolscher Wert, der sich anschließen über "or" mit der Variablen b verknüpfen lässt. Dies ergibt ebenfalls einen boolschen Wert, der anschließend über "=" mit false verknüpft wird. }
+[ ] E: i div 3.0 { Die Standardfunktion "div" ist für real Zahlen nicht definiert. }

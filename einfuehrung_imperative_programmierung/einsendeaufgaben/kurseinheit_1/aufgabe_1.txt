@@ -1,0 +1,6 @@
+Welche der folgenden Bezeichner sind gültige Variablenbezeichner in einem PASCAL-Programm?
+[ ] A: Beispiel_Programm {Ein Bezeichner darf keinen Unterstrich enthalten.}
+[X] B: Variable { Gültiger Bezeichner, da er nur aus Buchstaben besteht und nicht bereits von Pascal reserviert wurde. }
+[ ] C: <Zaehler> {Ein Bezeichner darf nur aus buchstaben und Zahlen bestehen. }
+[ ] D: TYPE { Gültiger Bezeichner, aber schon von Pascal reserviert, daher nicht für eine Variable nutzbar. }
+[ ] E: zwölf { Ein Bezeichner darf nur aus Zahlen und den Buchstaben a-z und A-Z bestehen. Umlaute sind nicht erlaubt. }
