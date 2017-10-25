@@ -1,0 +1,66 @@
+Die Funktion max findet in einem Feld ParFeld von integer-Werten das Maximum der Feldelemente ParFeld[von], ..., ParFeld[bis].Wir geben folgende Deklaration an:
+
+    function max (
+               ParFeld: tFeld;
+               von, bis: tIndex): integer;
+    { bestimmt das Maximum im Teilfeld von ParFeld[von] 
+      bis ParFeld[bis] }
+    var
+      Wert : integer;
+      i : tIndex;
+    begin
+      Wert := ParFeld[von];
+      for i := von + 1 to bis do
+        if ParFeld[i] > Wert then
+          Wert := ParFeld[i];
+      max := Wert
+    end; { max }    
+
+Für welche der folgenden Programmstücke verlassen die Werte der aktuellen Parameter bei dem Aufruf  bzw. den Aufrufen der  Funktion max nicht den durch die formalen Parameter definierten gültigen Wertebereich, egal welche integer-Werte im Feld vorkommen? Gehen Sie dabei von folgenden Konstanten-, Typ- und Variablenvereinbarungen aus:
+    const
+    GRENZE = 10;
+    type      
+    tIndex = 1..GRENZE;
+    tFeld = array [tIndex] of integer;
+    var
+    Feld : tFeld;
+    w,
+    w1,
+    w2 : integer;
+
+
+ 
+       
+[ ] A 	
+w := max (Feld, Feld[1], Feld[GRENZE]);
+{ Falsch, da hier Werte von  Feld in die Funktion gegeben werden. Der formale Parameter ist definiert als 1 bis GRENZE (also 10 in diesem Fall). Da es aber keine Einschränkung der Werte im Feld gibt können dort auch Werte enthalten sein, die unter 1 oder über 10 liegen. Dadurch widersprechen die aktuellen Parameter den formellen Parametern. }
+
+[X] B 	
+w := max (Feld, (GRENZE-1) div 2,
+            (GRENZE-1) div 2);
+{ Richtig, da die formalen Parameter der Funktion definiert sind als 1 bis GRENZE. Daher ist GRENZE-1 geteilt durch 2 niemals größer als Grenze }
+
+[X] C 	
+if max (Feld, 1, (GRENZE-1) div 2) >
+      max (Feld, (GRENZE+1) div 2, GRENZE)
+then
+  w := max (Feld, 1, (GRENZE-1) div 2)
+else
+  w := max (Feld, (GRENZE+1) div 2, GRENZE);
+{ Ebenfalls richtig, da hier wieder nur Werte in die Funktion max gegeben werden, die sich auf GRENZE beziehen und damit zwischen 1 und GRENZE liegen. }
+
+[ ] D 	
+w := max (Feld, 1, GRENZE);
+if w <= GRENZE then
+  write (max (Feld, w, w));
+{ Der erste Aufruf entspricht noch den formalen Parametern. Durch diesen Aufruf wird der größte Wert im Feld in w gespeichert. In der darauffolgenden Zeile wird zwar überprüft, dass w nicht größer ist, als GRENZE, negative Werte, oder die Zahl 0, die kleiner sind als 1 werden hierbei aber nicht aussortiert, daher ist es möglich die Funktion mit einem aktuellen Parameterwert für die Parameter von und bis von <= 1 aufzurufen. }
+
+[X] E 	
+w1 := max (Feld, 1, GRENZE);
+w2 := max (Feld, 4, GRENZE-1);
+if (0 < w2) and (w1 <= GRENZE) then
+begin
+  w := max (Feld, 2, GRENZE);
+  w := max (Feld, 1, w)
+end; 
+{ Die ersten beiden Aufrufe von max sind wieder konform. Entsprechend den vorherigen Erklärungen. Hier könnten für w1 und w2 zwar wieder Werte als Ergebnis der Funktion zurückgeliefert werden, die entweder größer als 10 oder kleiner als 1 sind, dies wird allerdings durch die if-Anweisung in der darauffolgenden Zeile gefiltert. }

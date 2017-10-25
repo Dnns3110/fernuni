@@ -1,0 +1,90 @@
+In einem PASCAL-Programm soll eine 5×5 Matrix transponiert werden. Das heisst, die Zeilen und Spalten der Matrix sind zu vertauschen, wie im folgenden Beispiel gezeigt ist:
+
+15  8  1 24 17       15 16 22  3  9
+16 14  7  5 23        8 14 20 21  2
+22 20 13  6  4  -->   1  7 13 19 25
+ 3 21 19 12 10       24  5  6 12 18
+ 9  2 25 18 11       17 23  4 10 11
+
+Wir geben folgende Typdefinition und Variablendeklaration an:
+
+  const
+  GROESSE = 5;
+  type
+  tMatrix = array [1..GROESSE,1..GROESSE] of integer;
+
+  var
+  A : tMatrix;
+  tauschPuffer,
+  i,
+  j : integer;
+
+Das Lesen der Matrixwerte in A wird folgendermaßen durchgeführt:
+{ Lesen der Matrixwerte in A: }
+  for i := 1 to GROESSE do
+    for j := 1 to GROESSE do
+      readln (A[i,j]);
+
+Welche der fünf folgenden Programmstücke führen das Transponieren der Matrix A korrekt aus?
+
+ 
+       
+[X] A 	
+begin
+  for i := 1 to GROESSE-1 do
+    for j := i+1 to GROESSE do
+    begin
+      tauschPuffer := A[i,j];
+      A[i,j] := A[j,i];
+      A[j,i] := tauschPuffer
+    end
+end;
+{ Dies ist eine gültige Lösung. beginnend in der ersten Zeile und zweiten Spalte bewegt man sich mit jedem Schleifendurchlauf der äußeren Schleife immer weiter entlang der Diagonalen in die rechte untere Ecke. Dies geschieht, da die innere Schleife niemals bei einem kleineren Wert beginnt, als i (der Laufvariablen der äußeren Schleife). Da die innere Schleife bei i+1 beginnt erspart man sich zusätzlich das unnütze "tauschen" der Werte auf der Diagonalen. }
+
+[X] B 	
+begin
+  for i := 1 to GROESSE do
+    for j := 1 to i do
+    begin
+      tauschPuffer := A[i,j];
+      A[i,j] := A[j,i];
+      A[j,i] := tauschPuffer
+    end
+end;
+{ Bei dieser Implementierung werden in "quadratischer Form" von der Position (1,1) beginnend bis zur rechten unteren Ecke immer die Werte getauscht. Da die innere Schleife immer nur bis i durchlaufen wird hat man ein umgekehrtes Muster zu Lösung A.  }
+
+[ ] C 	
+begin
+  for i := 1 to GROESSE do
+    for j := 1 to GROESSE do
+    begin
+      tauschPuffer := A[i,j];
+      A[i,j] := A[j,i];
+      A[j,i] := tauschPuffer
+    end
+end;
+{ Diese Lösung ist falsch, da bei jeder Inkrementierung durch die Äußere Schleife die Werte der Matrix bis zu dieser Zeile und Spalte vertauscht werden. Dadurch werden beispielsweise die Variablen an Position (1,2) und (2,1) immer wieder getauscht, beziehungsweise im nächten Schleifendurchlauf der äußeren Schleife zurückgetauscht. }
+
+[ ] D 	
+begin
+  for i := 1 to GROESSE do
+    for j := 1 to GROESSE-i do
+    begin
+      tauschPuffer := A[i,j];
+      A[i,j] := A[j,i];
+      A[j,i] := tauschPuffer
+    end
+end;
+{ Da die innere Schleife immer wieder bei 1 beginnt, sich der Zielwert aber bei jeder Iteration der äußeren Schleife um eins verringert werden hier einerseits Werte immer wieder getauscht und in einem späteren Schleifendurchlauf wieder anschließend zurückgetauscht, da jede Kombination zweier i und j Werte genau zweimal ausgeführt wird. Außerdem wird die letzte Spalte und Zeile nie berührt, da die innere Schleife bei i = 1 ihren höchsten Wert von GROESSE-1 hat. Und da der Zielwert der inneren Schleife immer um 1 reduziert wird, gibt es bei i = GROESSE keinen Durchlauf der inneren Schleife, da GROESSE - GROESSE = 0 und der initiale Wert für j bei 1 liegt und eine Vorschleife von 1 bis 0 (aufwärts) nie durchlaufen wird. }
+
+[ ] E 	
+begin
+  for i := 1 to GROESSE-1 do
+    for j := i+1 to GROESSE do
+    begin
+      tauschPuffer := A[i,j];
+      A[j,i] := A[i,j];
+      A[j,i] := tauschPuffer
+    end
+end;
+{ Die Schleifen selbst entsprechen hier zwar denen von Lösung A, allerdings wird innerhalb der Schleife nicht getauscht, sondern der Wert von Position (i,j) einfach nur an Position (j,i) kopiert. }

@@ -1,0 +1,88 @@
+Binäres Suchen auf einem aufsteigend sortierten Feld (der Größe FELDGROESSE) funktioniert nach folgendem Algorithmus: Es wird das Feldelement auf der mittleren Position (bzw. auf einer der beiden mittleren Positionen) des Feldes mit dem gesuchten Wert (in der Variablen Suchwert) verglichen. Ist der gesuchte Wert größer, so wird analog in der oberen Hälfte weitergesucht, ist er kleiner, so in der unteren Hälfte. Ist er gleich, so wird die Suche erfolgreich beendet. Ist der gesuchte Wert nicht vorhanden, so endet das Verfahren erfolglos mit einer "Hälfte" der Länge 0 oder 1.
+
+Auf diese Weise wird bei der binären Suche in jedem Schritt das Problem halbiert -- die binäre Suche ist daher ein Paradebeispiel für einen extrem effizienten Algorithmus.
+
+Es gelten die folgenden Typ- bzw. Variablenvereinbarungen, wobei FELDGROESSE als positive integer-Konstante (d.h.=1) vorausgesetzt wird:
+
+    var
+    unten, oben, Mitte : integer;
+    Feld : array[1..FELDGROESSE] of integer;
+    Suchwert : integer;
+    gefunden : boolean;
+
+Welche der folgenden Programmstücke erfüllen diese Aufgabe?
+
+ 
+       
+[X] A 	
+unten := 1;
+oben := FELDGROESSE;
+repeat
+  Mitte := (oben + unten) div 2;
+  if Suchwert > Feld[Mitte] then
+    unten := Mitte + 1;
+  if Suchwert < Feld[Mitte] then
+    oben := Mitte - 1;
+  gefunden := (Suchwert = Feld[Mitte]) 
+until gefunden or (unten > oben);
+{ Klassische implementierung der binären Suche. }
+
+[ ] B 	
+unten := 1;
+oben := FELDGROESSE;
+repeat
+  Mitte := (oben + unten) div 2;
+  if Suchwert > Feld[Mitte] then
+    unten := Mitte
+  else
+    oben := Mitte;
+  gefunden := (Feld[Mitte] = Suchwert) 
+until gefunden or (unten >= oben);
+{ Da unten, bzw. oben immer auf den Wert von Mitte gesetzt werden kann es hier bei manchen Suchwerten zu einer Endlosschleife führen. Dies kommt daher, dass sich bei diesen Werten entweder oben, oder unten bedingt durch die Zuweisung von Mitte, nicht mehr verändert, und sich somit die Werte von unten und oben nicht weiter annähern. Der Suchwert wird nicht gefunden und die Bedingung "unten >= oben" ist auch niemals wahr.  }
+
+[ ] C 	
+gefunden := false;
+unten := 1;
+oben := FELDGROESSE;
+while (unten < oben) and not gefunden do
+begin
+  Mitte := (oben + unten) div 2;
+  if Suchwert = Feld[Mitte] then
+    gefunden := true
+  else
+    if Suchwert < Feld[Mitte] then
+      oben := Mitte - 1
+    else
+      unten := Mitte + 1
+end; 
+{ Falsch, da die Suche abgebrochen wird, sobald unten und oben gleich sind. Dieser Fall wär aber noch gültig und könnte die gesuchte Zahl ermitteln. Es müsste daher hier eher heißen <= anstatt <. }
+
+[X] D 	
+gefunden := false;
+unten := 1;
+oben := FELDGROESSE;
+while (unten <= oben) and not gefunden do
+begin
+  Mitte := (oben + unten) div 2;
+  if Suchwert = Feld[Mitte] then
+    gefunden := true
+  else
+    if Suchwert < Feld[Mitte] then
+      oben := Mitte - 1
+    else
+      unten := Mitte + 1
+end; 
+{ Hier wird das richtig gemacht, was Fall C falsch macht, da hier die Prüfung auf unten <= oben stattfindet. }
+
+[X] E 	
+unten := 1;
+oben := FELDGROESSE;
+repeat
+  Mitte := (oben + unten) div 2;
+  if Suchwert <= Feld[Mitte] then
+    oben := Mitte - 1;
+  if Feld[Mitte] <= Suchwert then
+    unten := Mitte + 1;
+until (unten > oben);
+gefunden := (Feld[Mitte] = Suchwert);
+{ Dieser Algorithmus funktioniert, obwohl die Schleife nur abgebrochen wird, wenn unten > oben ist funktioniert es, da im Falle, dass der Suchwert gefunden wird oben um 1 dekrementiert wird und unten um 1 inkrementiert. Dadurch ist bei einem Fund die Aussage unten > oben wahr und die Schleife wird beendet. Die Prüfung danach, ob Suchwert = Mitte ist erledigt dann die Zuweisung auf gefunden. }

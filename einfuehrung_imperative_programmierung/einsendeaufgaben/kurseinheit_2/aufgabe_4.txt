@@ -1,0 +1,43 @@
+Gegeben sei das folgende Programm:
+
+program WasPassiert(input, output);
+var
+  a, b, c: Integer;
+
+begin
+  b := 0;
+  c := 1;
+  readln(a);
+  while a > 0 do
+  begin
+    b := b+c*(a mod 2);
+    a := a div 2;
+    c := c*10;
+  end;
+  writeln(b)
+end.
+
+
+
+a) Was gibt das Programm für die Eingabe a=10 aus? 1010   { Binäre Darstellung der Dezimalzahl 10. }
+b) Was gibt das Programm für die Eingabe a=7 aus? 111 { Ebenfalls binäre Darstellung, diesmal der Dezimalzahl 7. }
+c)
+Welches ist eine passende Problemspezifikation?
+
+[ ] A		
+Eingabe: Zwei Integerzahlen b und c
+Ausgabe: b als Folge von Nullen und Einsen
+Nachbedingung: b und c sind immer größer als Null
+{ Schon zu präzise durch Verwendung des Begriffes "Integerzahlen", außerdem sind b und c keine Eingaben. Es gibt im gezeigten Programm nur eine Eingabe.  }
+ 
+[ ]B		
+Eingabe: readln(a)
+Ausgabe: writeln(b)
+Nachbedingung: Solange a größer ist als 0 wird der Rest bei ganzzahliger Division durch 2 berechnet und addiert.
+{ Viel zu präzise, da durch Nennung expliziter Funktionen schon eine Programmiersprache gewählt zu sein scheint. Eine Problemspezifikation ist allerdings unabhängig von einer Programmiersprache zu definieren. Außerdem werden schon die exakten Variablennamen a und b für die Ein-, bzw. Ausgabe genannt. }
+ 
+[X]C		
+Eingabe: Eine natürliche Zahl n
+Ausgabe: Eine binäre Zahl m
+Nachbedingung: m ist die Binärdarstellung von n
+{ Korrekte Antwort. Einerseits werden hier Mathematische Begriffe, wie natürliche und binäre Zahl verwendet, außerdem ist auch nur die Rede von Zahlen n und m, ohne genauen Bezug auf die explizite Benennung von Variablen im späteren Programm. Des Weiteren ist die Beschreibung abstrakt geschrieben. }
