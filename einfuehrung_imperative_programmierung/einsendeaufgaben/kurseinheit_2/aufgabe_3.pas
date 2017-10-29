@@ -36,6 +36,9 @@ begin
     ZeilenSummeKleiner := false
   else 
   begin
+  { Initialisierung der Zeilen Summe. }
+  ZeilenSumme := 0;
+
   { Berechnen dann die Zeilen Summe. }
     for SpaltenNr := 1 to SPALTENMAX do
       ZeilenSumme := ZeilenSumme + inMatrix[inZeilenNr, SpaltenNr];
