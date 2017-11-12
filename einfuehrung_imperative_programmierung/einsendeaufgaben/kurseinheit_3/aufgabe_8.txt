@@ -1,0 +1,62 @@
+Es gelten die folgenden Typ- bzw. Variablenvereinbarungen:
+
+  type
+  tPerson = record
+              Name : string[20];
+              Alter : integer
+            end;
+
+  var
+  pPerson1,
+  pPerson2 : ^tPerson;
+  Zahl1,
+  Zahl2 : integer;
+  pZahl1,
+  pZahl2 : ^integer;
+Welche der untenstehenden Anweisungsfolgen enthalten keinen Fehler:
+       
+[ ] A 	
+
+new (pPerson1);
+pPerson1.Name := 'Monika';
+pPerson1.Alter := 31;
+{ Falsch, da pPerson1 ein Zeiger ist, und nicht per ^ dereferenziert wird, um auf die Elemente des Records tPerson zugreifen zu können. }
+
+
+[ ] B 	
+
+new (pZahl1);
+new (pZahl2);
+pZahl1 := 15;
+pZahl2 := pZahl1;
+{ Die erste Zuweisung von 15 zum Zeiger pZahl1 ist nicht erlaubt, da nicht dereferenziert wird. Die zweite Zuweisung funktioniert hingegen, da dem Zeiger pZahl2 der Zeiger pZahl1 zugewiesen werden soll. }
+
+
+[X] C 	
+
+Zahl1 := 35;
+new (pPerson1);
+pPerson1^.Name := 'Till';
+pPerson1^.Alter := Zahl1;
+{ Richtig. Es wird erst dereferenziert, und danach auf die Elemente von tPerson zugegriffen. }
+
+
+[ ] D 	
+new (pZahl1);
+new (pZahl2);
+Zahl1 := 23;
+Zahl2 := 75;
+if (Zahl1 < Zahl2) then 
+      pZahl1 := 23
+else
+      pZahl1^ := 75;
+{ Das geht nicht. Es wird wieder versucht dem Zeiger einen Integer zuzuweisen, ohne vorherige dereferenzierung. }
+
+
+[X] E 	
+
+new (pZahl1);
+Zahl1 := 34;
+pZahl1^ := Zahl1;
+pZahl2 := pZahl1;
+{ Richtige Lösung. Zuerst findet eine Zuweisung von 34 zu Zahl1 statt, bei der Zuweisung zum Zeiger pZahl1 findet ebenso die dereferenzierung statt. }

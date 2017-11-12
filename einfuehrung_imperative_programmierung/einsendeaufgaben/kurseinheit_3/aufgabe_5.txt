@@ -1,0 +1,9 @@
+Welche Formen der Parameterübergabe sind beim Programm Parameter1zu wählen, damit das Programm die Ausgabe  1 -3 4   erzeugt?
+
+[X] A 	Die Parameterübergaben beider Prozeduren erfolgen als var-Parameter.
+[ ] B 	Die Parameterübergaben beider Prozeduren erfolgen als Wertparameter.
+[X] C 	Die Parameterübergabe erfolgt bei der Prozedur globalProc als var-Parameter und bei der Prozedur lokalProc als Wertparameter.
+[ ] D 	Die Parameterübergabe erfolgt bei der Prozedur globalProc als Wertparameter und bei der Prozedur lokalProc als var-Parameter.
+[ ] E 	Die Ausgabe des Programms ist unabhängig von der Art der Parameterübergabe.
+
+{ Durch die Verwendung von Referenzparametern und der Nutzung globaler Variablen erhält man das gewünschte Ergebnis. Wobei hier nur globalProc Referenzparameter benötigt, um zu diesem Ergebnis zu kommen. Die Parameter von lokalProc können Referenz- oder Wertparameter sein, das ist an dieser Stelle egal, um zu diesem Ergebnis zu kommen. }
