@@ -9,7 +9,7 @@ public class Minus implements Operator {
      */
     @Override
     public String sign() {
-        return null;
+        return "-";
     }
 
     /**

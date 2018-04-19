@@ -34,6 +34,12 @@ public class Divided implements Operator {
             return 0;
         }
 
+        // Handle division by zero.
+        if (operands[1] == 0) {
+            System.out.println("Divide by zero is not allowed!");
+            return 0;
+        }
+
         return operands[0] / operands[1];
     }
 }
